@@ -1,0 +1,30 @@
+=============== Mar 24, 2022 (EDT) ===============
+01:14:05.376290 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+01:14:05.460403 db@open opening
+01:14:05.462534 version@stat F·[] S·0B[] Sc·[]
+01:14:05.504837 db@janitor F·2 G·0
+01:14:05.504957 db@open done T·44.521694ms
+01:30:43.332999 db@close closing
+01:30:43.333065 db@close done T·65.475µs
+=============== Mar 24, 2022 (EDT) ===============
+01:41:38.523208 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+01:41:38.523414 version@stat F·[] S·0B[] Sc·[]
+01:41:38.523442 db@open opening
+01:41:38.523511 journal@recovery F·1
+01:41:38.525164 journal@recovery recovering @1
+01:41:38.546517 memdb@flush created L0@2 N·2 S·181B "loc..seq,v2":"version,v1"
+01:41:38.549684 version@stat F·[1] S·181B[181B] Sc·[0.25]
+01:41:38.637404 db@janitor F·3 G·0
+01:41:38.637516 db@open done T·114.059546ms
+01:45:00.309912 db@close closing
+01:45:00.309990 db@close done T·76.47µs
+=============== Mar 24, 2022 (EDT) ===============
+01:48:39.141211 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+01:48:39.141439 version@stat F·[1] S·181B[181B] Sc·[0.25]
+01:48:39.141488 db@open opening
+01:48:39.141596 journal@recovery F·1
+01:48:39.143285 journal@recovery recovering @3
+01:48:39.164591 memdb@flush created L0@5 N·1 S·162B "loc..seq,v4":"loc..seq,v4"
+01:48:39.167212 version@stat F·[2] S·343B[343B] Sc·[0.50]
+01:48:39.255549 db@janitor F·4 G·0
+01:48:39.255656 db@open done T·114.139167ms

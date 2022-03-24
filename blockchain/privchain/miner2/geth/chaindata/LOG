@@ -1,0 +1,42 @@
+=============== Mar 24, 2022 (EDT) ===============
+00:48:25.421672 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+00:48:25.484855 db@open opening
+00:48:25.486392 version@stat F·[] S·0B[] Sc·[]
+00:48:25.507365 db@janitor F·2 G·0
+00:48:25.507475 db@open done T·22.560437ms
+00:48:25.509639 db@close closing
+00:48:25.509791 db@close done T·151.051µs
+=============== Mar 24, 2022 (EDT) ===============
+01:28:02.408669 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+01:28:02.408990 version@stat F·[] S·0B[] Sc·[]
+01:28:02.409026 db@open opening
+01:28:02.409116 journal@recovery F·1
+01:28:02.411269 journal@recovery recovering @1
+01:28:02.435998 memdb@flush created L0@2 N·10 S·598B "H\xc0\x99..\xcdѫ,v3":"r\x00\x00..\xcdѫ,v5"
+01:28:02.439864 version@stat F·[1] S·598B[598B] Sc·[0.25]
+01:28:02.546674 db@janitor F·3 G·0
+01:28:02.546733 db@open done T·137.689719ms
+01:30:45.971893 db@close closing
+01:30:45.972134 db@close done T·238.694µs
+=============== Mar 24, 2022 (EDT) ===============
+01:45:15.630787 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+01:45:15.631027 version@stat F·[1] S·598B[598B] Sc·[0.25]
+01:45:15.631058 db@open opening
+01:45:15.631144 journal@recovery F·1
+01:45:15.633145 journal@recovery recovering @3
+01:45:15.657773 memdb@flush created L0@5 N·598 S·31KiB "\x0fB\x96..\xf6\xc0_,v607":"unc..own,v18"
+01:45:15.661412 version@stat F·[2] S·32KiB[32KiB] Sc·[0.50]
+01:45:15.749490 db@janitor F·4 G·0
+01:45:15.749604 db@open done T·118.501873ms
+01:47:09.382378 db@close closing
+01:47:09.382534 db@close done T·155.234µs
+=============== Mar 24, 2022 (EDT) ===============
+01:49:29.922077 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+01:49:29.922314 version@stat F·[2] S·32KiB[32KiB] Sc·[0.50]
+01:49:29.922344 db@open opening
+01:49:29.922423 journal@recovery F·1
+01:49:29.924365 journal@recovery recovering @6
+01:49:29.947370 memdb@flush created L0@8 N·87 S·7KiB "/AG..#Eu,v696":"\xf0\x8f\x1e..\v\xba;,v695"
+01:49:29.951108 version@stat F·[3] S·39KiB[39KiB] Sc·[0.75]
+01:49:30.080321 db@janitor F·5 G·0
+01:49:30.080423 db@open done T·158.064027ms
