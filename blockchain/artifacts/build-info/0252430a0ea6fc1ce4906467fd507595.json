@@ -1,0 +1,67 @@
+{
+	"id": "0252430a0ea6fc1ce4906467fd507595",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.7",
+	"solcLongVersion": "0.8.7+commit.e28d00a7",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"Desktop/EthCA/blockchain/EthCA.sol": {
+				"content": "//SPDX-License-Identifier: GLWTPL\npragma solidity ^0.8.7;\n"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"sources": {
+			"Desktop/EthCA/blockchain/EthCA.sol": {
+				"ast": {
+					"absolutePath": "Desktop/EthCA/blockchain/EthCA.sol",
+					"exportedSymbols": {},
+					"id": 2,
+					"license": "GLWTPL",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".7"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "34:23:0"
+						}
+					],
+					"src": "34:24:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}
