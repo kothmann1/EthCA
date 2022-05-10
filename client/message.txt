@@ -1,0 +1,136 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "cancel_signup",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "requestID",
+				"type": "uint256"
+			}
+		],
+		"name": "endVerification",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "publicKey",
+				"type": "bytes[]"
+			},
+			{
+				"internalType": "string",
+				"name": "domain",
+				"type": "string"
+			}
+		],
+		"name": "issueCertificate",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "serialNum",
+				"type": "uint256"
+			}
+		],
+		"name": "readCertificate",
+		"outputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "publicKey",
+				"type": "bytes[]"
+			},
+			{
+				"internalType": "string",
+				"name": "domain",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "issued",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "exp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "domain",
+				"type": "string"
+			}
+		],
+		"name": "request_verification",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "sign_up",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "requestID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "voteIn",
+				"type": "bool"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
