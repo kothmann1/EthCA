@@ -151,8 +151,8 @@ contract_instance = w3.eth.contract(address=address, abi=abi)
 
 if w3.isConnected():
     # what function to call?
-    pk, domain, issued, exp = contract_instance.functions.readCertificate(serial_num)
-    print('Domain: ', domain)
+    pk, domain, issued, exp = contract_instance.functions.readCertificate(serial_num).call()
+    print('Domain: ', domain, " Pk: ", pk)
 else:
     print("Not connected")
     
