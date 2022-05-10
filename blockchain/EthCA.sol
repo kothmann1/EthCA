@@ -3,7 +3,6 @@ pragma solidity ^0.8.7;
 /*
 * TODOs:
 * 1. Set up validator sign-ups - done
-* 2. Set up signature validation - might not need to be done
 * 3. Implement events 
 * 4. Set up validator selection - done
 * 5. Implement certificate issuance
@@ -11,17 +10,18 @@ pragma solidity ^0.8.7;
 */
 contract EthCA {
     //Keeps track of signed up validators
-    address payable[] signups;
+    mapping (uint => address payable) signups;
     mapping (address=>bool) signedup;
     //Keeps track of all requests
-    validationRequest[] requests;
+    mapping (uint => validationRequest) requests;
     //Keeps track of addresses verified to make certificate changes for domains
     mapping (string => address) verified;
     //trackers for signups and requests
-    uint numsignups;
-    uint numRequests;
-    uint constant numValidators = 20;
-    uint constant quorum = 8;
+    uint numsignups = 0;
+    uint numRequests = 0;
+    uint constant numValidators = 3;
+    uint constant quorum = 1;
+    uint numCerts = 0;
     //struct to contain information needed in validation requests
     struct validationRequest {
         uint id;
@@ -38,18 +38,32 @@ contract EthCA {
         uint noVotes;
         uint deadline;
     }
+    /*
+    Certificate structure that contains a serial number for ease of finding, the public key of the certified entity,
+    the domain of the certified server, an issued time and an expiration time for validity management.
+    Future versions could also contain: an algorithm ID field for the support of varied algorithm IDs
+    */
+    struct certificate {
+        uint serialNum;
+        bytes[] publicKey;
+        string domain;
+        uint issuedTime;
+        uint expTime;
+    }
+    mapping (uint => certificate) certs;
     function chooseValidators(uint id) private {
         for(uint i = 0; i < numValidators; i++) {
             //Generate some value that will not be easily predictable by attacker (definitely not random, but also not easily subject to manipulation)
-            uint index = uint(sha256(abi.encodePacked(signups.length))) % signups.length;
+            uint index = uint(sha256(abi.encodePacked(numsignups))) % numsignups;
             //Pick a validator and remove them from signedup
             address payable val1 = signups[index];
             signedup[val1] = false;
             //Replace the chosen address w/last address in signups
-            signups[index] = signups[signups.length - 1];
+            signups[index] = signups[numsignups - 1];
             //Delete last slot in signups
-            signups.pop();
+            numsignups--;
             //Add to validator list
+            requests[id].validators[val1] = true;
             requests[id].validatorlist[i] = val1;
             //TODO: Add event to track this and *notify* validator
         }
@@ -65,9 +79,11 @@ contract EthCA {
         requests[numRequests].id = numRequests;
         requests[numRequests].sender = msg.sender;
         requests[numRequests].domain = domain;
+        requests[numRequests].deadline = block.timestamp + 1 minutes;
         //select validators for request
         chooseValidators(numRequests);
-        
+        numRequests = numRequests + 1;
+        return numRequests - 1;
      }
     function sign_up() public payable returns (uint) {
         //Require that enough stake money is sent
@@ -91,7 +107,7 @@ contract EthCA {
         //Require that the voter has been selected to validate this request
         require(requests[requestID].validators[msg.sender] == true, "Not a validator for this request!");
         //Require that the vote is in time
-        require(block.number < requests[requestID].deadline, "Voting has closed");
+        require(block.timestamp < requests[requestID].deadline, "Voting has closed");
         //Log vote
         if(voteIn) {
             //Add voter to list of yeasayers then increment count of yes votes
@@ -102,16 +118,14 @@ contract EthCA {
             requests[requestID].noNodes[requests[requestID].noVotes] = payable(msg.sender);
             requests[requestID].noVotes = requests[requestID].noVotes + 1;
         }
-        //Send the validator their reward *** need to implement PoS waiting to do this
-        payable(msg.sender).transfer(1 ether + requests[requestID].reward);
         //Remove sender from validator list so they can't vote again
         requests[requestID].validators[msg.sender] = false;
     }
     //Function that needs to be called to tally votes and authorize/not authorize this issuance - can be called by validators or requestor
     function endVerification(uint requestID) public {
         //Enforce requirements to complete a verification request - must be involved in request and deadline must be passed
-        require(requests[requestID].validators[msg.sender] == true || requests[requestID].sender == msg.sender, "Not authorized to end this verification!");
-        require(block.number > requests[requestID].deadline, "Deadline not yet passed!");
+        require(block.timestamp > requests[requestID].deadline, "Deadline not yet passed!");
+        require(requests[requestID].completed == false, "This request has already been processed!");
         if(requests[requestID].yesVotes + requests[requestID].noVotes >= quorum) {
             if(requests[requestID].yesVotes > requests[requestID].noVotes) {
                 //pay the validators
@@ -127,14 +141,25 @@ contract EthCA {
                 }
             }
         } else {
-            //Quorum not met - pay validators who voted back their stake, pay owner back however much is left
-            //Possible functionality - ban nodes who don't vote from being validators
             
         }
         requests[requestID].completed = true;
     }
     //Function that an authorized address can call to issue a certificate for a given public key for their domain
-    function issueCertificate(bytes[] memory publicKey, string memory domain) public {
-        
+    function issueCertificate(bytes[] memory publicKey, string memory domain) public returns (uint) {
+        require(msg.sender == verified[domain], "Not authorized to issue certificates for this domain!");
+        certs[numCerts].publicKey = publicKey;
+        certs[numCerts].serialNum = numCerts;
+        certs[numCerts].domain = domain;
+        certs[numCerts].issuedTime = block.timestamp;
+        certs[numCerts].expTime = block.timestamp + 7 days;
+        numCerts = numCerts + 1;
+        return numCerts - 1;
+    }
+    //Function for clients to call to check the certificate of a server during TLS handshake
+    function readCertificate(uint serialNum) public view returns(bytes[] memory publicKey, string memory domain, uint issued, uint exp) {
+        require(serialNum < numCerts, "That certificate does not exist!");
+        require(certs[serialNum].expTime > block.timestamp, "That certificate has expired!");
+        return (certs[serialNum].publicKey, certs[serialNum].domain, certs[serialNum].issuedTime, certs[serialNum].expTime);
     }
 }
